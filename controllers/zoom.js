@@ -2,14 +2,16 @@ const axios = require("axios");
 
 async function createZoomMeeting(req, res, next) {
   try {
-    const token = req.body.token;
-    console.log(req.body)
+    // This is a monkey patch, I didn't have enough time to figure out how to fix time zones
+    const dateWithTimeZone = new Date(req.body.start_time)
+    dateWithTimeZone.setMinutes(120)
+
     const result = await axios.post(
       "https://api.zoom.us/v2/users/me/meetings",
       {
         topic: "Zoom calendar home test",
         type: 2,
-        start_time: req.body.start_time,
+        start_time: dateWithTimeZone,
         duration: req.body.duration,
         timezone: "Europe/Paris",
         password: "efounders!",
@@ -34,7 +36,7 @@ async function createZoomMeeting(req, res, next) {
       },
       {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + req.body.token,
           "User-Agent": "Zoom-api-Jwt-Request",
           "content-type": "application/json",
         },
