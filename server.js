@@ -6,6 +6,8 @@ const cors = require("cors");
 const auth = require("./middlewares/auth");
 const zoomController = require("./controllers/zoom.js");
 
+const PORT = 8080
+
 app.use(cors());
 
 app.use("/health_check", async (req, res) => {
@@ -21,4 +23,4 @@ zoomRouter.post(
 );
 app.use("/zoom", zoomRouter);
 
-server.listen(3000, () => console.log("Server is running on port 3000"));
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

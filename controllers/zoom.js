@@ -3,13 +3,14 @@ const axios = require("axios");
 async function createZoomMeeting(req, res, next) {
   try {
     const token = req.body.token;
+    console.log(req.body)
     const result = await axios.post(
       "https://api.zoom.us/v2/users/me/meetings",
       {
         topic: "Zoom calendar home test",
         type: 2,
-        start_time: "2023-03-18T17:00:00",
-        duration: 30,
+        start_time: req.body.start_time,
+        duration: req.body.duration,
         timezone: "Europe/Paris",
         password: "efounders!",
         agenda: "Let's talk about full stack development",
