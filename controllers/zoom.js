@@ -4,7 +4,7 @@ async function createZoomMeeting(req, res, next) {
   try {
     // This is a monkey patch, I didn't have enough time to figure out how to fix time zones
     const dateWithTimeZone = new Date(req.body.start_time)
-    dateWithTimeZone.setMinutes(120)
+    dateWithTimeZone.setMinutes(60)
 
     const result = await axios.post(
       "https://api.zoom.us/v2/users/me/meetings",
